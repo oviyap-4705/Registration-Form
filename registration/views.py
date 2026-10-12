@@ -7,7 +7,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 from .serializers import RegistrationSerializer
 from .models import Registration
-
+from django.views.decorators.http import require_http_methods
 
 
 def home(request):
