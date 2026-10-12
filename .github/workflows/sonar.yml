@@ -21,6 +21,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      
+      - name: Check Sonar token availability
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          if [ -n "$SONAR_TOKEN" ]; then
+            echo "SONAR_TOKEN is available"
+          else
+            echo "SONAR_TOKEN is MISSING"
+            exit 1
+          fi
+
 
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
