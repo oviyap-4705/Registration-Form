@@ -14,5 +14,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Check token reaches the job
+        run: |
+          echo "SONAR_TOKEN length is ${#SONAR_TOKEN}"
+
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
