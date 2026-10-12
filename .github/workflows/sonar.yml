@@ -19,13 +19,7 @@ jobs:
         run: |
           python3 -m venv "$RUNNER_TEMP/venv"
           . "$RUNNER_TEMP/venv/bin/activate"
-          pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          else
-            pip install django djangorestframework pillow
-          fi
-          pip install coverage
+          pip install --only-binary :all: -r requirements.txt
 
       - name: Run tests with coverage
         run: |
