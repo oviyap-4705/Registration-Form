@@ -17,15 +17,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python3 -m venv "$RUNNER_TEMP/venv"
-          . "$RUNNER_TEMP/venv/bin/activate"
-          pip install --only-binary :all: -r requirements.txt
-
+                    python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --require-hashes --only-binary :all: -r requirements.txt
       - name: Run tests with coverage
         run: |
-          . "$RUNNER_TEMP/venv/bin/activate"
-          coverage run manage.py test
-          coverage xml
+          "$RUNNER_TEMP/venv/bin/coverage" run manage.py test
+          "$RUNNER_TEMP/venv/bin/coverage" xml
 
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 # v6
