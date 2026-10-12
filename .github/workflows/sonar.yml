@@ -17,8 +17,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-                    python3 -m venv "$RUNNER_TEMP/venv"
+          python3 -m venv "$RUNNER_TEMP/venv"
           "$RUNNER_TEMP/venv/bin/pip" install --require-hashes --only-binary :all: -r requirements.txt
+
       - name: Run tests with coverage
         run: |
           "$RUNNER_TEMP/venv/bin/coverage" run manage.py test
