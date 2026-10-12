@@ -9,10 +9,29 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      DJANGO_SECRET_KEY: ci-only-dummy-key-not-used-anywhere-else
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          . "$RUNNER_TEMP/venv/bin/activate"
+          pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            pip install django djangorestframework pillow
+          fi
+          pip install coverage
+
+      - name: Run tests with coverage
+        run: |
+          . "$RUNNER_TEMP/venv/bin/activate"
+          coverage run manage.py test
+          coverage xml
 
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 # v6
