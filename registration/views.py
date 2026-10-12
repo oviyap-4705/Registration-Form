@@ -10,10 +10,6 @@ from .models import Registration
 
 
 
-# ======================================================
-# HOME PAGE
-# ======================================================
-
 def home(request):
 
     return render(
@@ -22,10 +18,6 @@ def home(request):
     )
 
 
-# ======================================================
-# REGISTRATION HTML PAGE
-# ======================================================
-
 def register_page(request):
 
     return render(
@@ -33,10 +25,6 @@ def register_page(request):
         "registration/register.html"
     )
 
-
-# ======================================================
-# LOGIN PAGE
-# ======================================================
 
 def login_page(request):
 
@@ -52,7 +40,7 @@ def login_page(request):
             ""
         )
 
-        # Find user using email
+        
         try:
 
             registration = Registration.objects.get(
@@ -69,7 +57,6 @@ def login_page(request):
                 }
             )
 
-        # Check password
         if not check_password(password, registration.password):
 
             return render(
@@ -80,7 +67,7 @@ def login_page(request):
                 }
             )
 
-        # Login successful
+       
         request.session["registration_id"] = (
             registration.id
         )
@@ -93,10 +80,6 @@ def login_page(request):
         "registration/login.html"
     )
 
-
-# ======================================================
-# PROFILE / USER DETAILS PAGE
-# ======================================================
 
 def profile_page(request):
 
@@ -125,34 +108,15 @@ def profile_page(request):
         return redirect("/login/")
 
 
-    # ==================================================
-    # UPDATE USER DETAILS
-    # ==================================================
 
     if request.method == "POST":
 
-        # ------------------------------------------------
-        # Copy normal form data
-        # ------------------------------------------------
-
         update_data = request.POST.copy()
-
-
-        # ------------------------------------------------
-        # Add uploaded files
-        # ------------------------------------------------
 
         for field_name, uploaded_file in request.FILES.items():
 
             update_data[field_name] = uploaded_file
 
-
-        # ------------------------------------------------
-        # Password handling
-        # ------------------------------------------------
-        #
-        # If password field is empty, don't change it.
-        # ------------------------------------------------
 
         password = request.POST.get(
             "password",
@@ -166,10 +130,6 @@ def profile_page(request):
                 None
             )
 
-
-        # ------------------------------------------------
-        # Serialize and update
-        # ------------------------------------------------
 
         serializer = RegistrationSerializer(
             registration,
@@ -194,11 +154,6 @@ def profile_page(request):
                 }
             )
 
-
-        # ------------------------------------------------
-        # Validation error
-        # ------------------------------------------------
-
         return render(
             request,
             "registration/profile.html",
@@ -209,10 +164,6 @@ def profile_page(request):
         )
 
 
-    # ==================================================
-    # DISPLAY USER DETAILS
-    # ==================================================
-
     return render(
         request,
         "registration/profile.html",
@@ -221,11 +172,6 @@ def profile_page(request):
         }
     )
 
-
-# ======================================================
-# LOGOUT
-# ======================================================
-
 def logout_page(request):
 
     request.session.flush()
@@ -233,23 +179,6 @@ def logout_page(request):
     return redirect("/")
 
 
-# ======================================================
-# TEST API
-# ======================================================
-
-@api_view(['GET'])
-def hello_api(request):
-
-    return Response({
-        "message": "Hello from Django API"
-    })
-
-
-# ======================================================
-# ALL REGISTRATIONS
-# GET  → Retrieve all
-# POST → Create new
-# ======================================================
 
 @api_view(['GET', 'POST'])
 @parser_classes([
@@ -257,10 +186,6 @@ def hello_api(request):
     FormParser
 ])
 def registration_api(request):
-
-    # ==================================================
-    # GET
-    # ==================================================
 
     if request.method == 'GET':
 
@@ -275,10 +200,6 @@ def registration_api(request):
             serializer.data
         )
 
-
-    # ==================================================
-    # POST
-    # ==================================================
 
     if request.method == 'POST':
 
@@ -307,12 +228,6 @@ def registration_api(request):
         )
 
 
-# ======================================================
-# SINGLE REGISTRATION
-# GET    → Retrieve
-# PATCH  → Update
-# DELETE → Delete
-# ======================================================
 
 @api_view([
     'GET',
@@ -325,10 +240,7 @@ def registration_api(request):
 ])
 def registration_detail_api(request, id):
 
-    # ==================================================
-    # FIND REGISTRATION
-    # ==================================================
-
+    
     try:
 
         registration = Registration.objects.get(
@@ -342,9 +254,6 @@ def registration_detail_api(request, id):
         }, status=404)
 
 
-    # ==================================================
-    # GET
-    # ==================================================
 
     if request.method == 'GET':
 
@@ -356,10 +265,6 @@ def registration_detail_api(request, id):
             serializer.data
         )
 
-
-    # ==================================================
-    # PATCH
-    # ==================================================
 
     if request.method == 'PATCH':
 
@@ -389,10 +294,6 @@ def registration_detail_api(request, id):
             status=400
         )
 
-
-    # ==================================================
-    # DELETE
-    # ==================================================
 
     if request.method == 'DELETE':
 
