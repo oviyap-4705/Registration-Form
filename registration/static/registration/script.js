@@ -2,11 +2,11 @@ const form = document.getElementById("registrationForm");
 const experience = document.getElementById("experience");
 const experienceValue = document.getElementById("experienceValue");
 
-const ALLOWED_IMAGE_TYPES = [
+const ALLOWED_IMAGE_TYPES = new Set([
     "image/jpeg",
     "image/png",
     "image/webp"
-];
+]);
 
 const MB = 1024 * 1024;
 const MAX_IMAGE_SIZE = 5 * MB;
@@ -116,7 +116,7 @@ function validateFileTypes(values) {
         return "Please upload your profile photo.";
     }
 
-    if (!ALLOWED_IMAGE_TYPES.includes(photo.type)) {
+    if (!ALLOWED_IMAGE_TYPES.has(photo.type)) {
         return "Profile photo must be JPG, PNG or WEBP.";
     }
 
