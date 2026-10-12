@@ -51,7 +51,7 @@ def login_page(request):
 
             return render(
                 request,
-                "registration/login.html",
+                LOGIN_TEMPLATE = "registration/login.html",
                 {
                     "error": "Invalid email or password."
                 }
@@ -147,7 +147,7 @@ def profile_page(request):
 
             return render(
                 request,
-                "registration/profile.html",
+                PROFILE_TEMPLATE = "registration/profile.html",
                 {
                     "registration": registration,
                     "success": "Details updated successfully."

@@ -21,7 +21,6 @@
 
 </head>
 
-
 <body>
 
     <div class="container">
@@ -41,11 +40,6 @@
             {% csrf_token %}
 
 
-            <!-- =========================
-                 PERSONAL DETAILS
-            ========================== -->
-
-            <!-- Name -->
             <label for="name">
                 Full Name
             </label>
@@ -59,7 +53,6 @@
             >
 
 
-            <!-- Email -->
             <label for="email">
                 Email
             </label>
@@ -72,8 +65,6 @@
                 required
             >
 
-
-            <!-- Password -->
             <label for="password">
                 Password
             </label>
@@ -86,8 +77,6 @@
                 required
             >
 
-
-            <!-- Phone -->
             <label for="phone">
                 Phone Number
             </label>
@@ -100,8 +89,6 @@
                 required
             >
 
-
-            <!-- Address -->
             <label for="address">
                 Address
             </label>
@@ -113,8 +100,6 @@
                 required
             ></textarea>
 
-
-            <!-- Date of Birth -->
             <label for="dob">
                 Date of Birth
             </label>
@@ -126,8 +111,6 @@
                 required
             >
 
-
-            <!-- Website -->
             <label for="website">
                 Website
             </label>
@@ -140,12 +123,6 @@
                 required
             >
 
-
-            <!-- =========================
-                 OTHER DETAILS
-            ========================== -->
-
-            <!-- State -->
             <label for="state">
                 State
             </label>
@@ -194,8 +171,6 @@
 
             </select>
 
-
-            <!-- Languages -->
             <label for="languages">
                 Languages
             </label>
@@ -237,116 +212,118 @@
                 Select the languages you know
             </small>
 
+            <fieldset class="field-group">
 
-            <!-- Gender -->
-            <label>
-                Gender
-            </label>
+                <legend>
+                    Gender
+                </legend>
 
-            <div class="radio-group">
+                <div class="radio-group">
 
-                <label>
-                    <input
-                        type="radio"
-                        name="gender"
-                        value="Male"
-                    >
-                    Male
-                </label>
-
-
-                <label>
-                    <input
-                        type="radio"
-                        name="gender"
-                        value="Female"
-                    >
-                    Female
-                </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Male"
+                        >
+                        Male
+                    </label>
 
 
-                <label>
-                    <input
-                        type="radio"
-                        name="gender"
-                        value="Other"
-                    >
-                    Other
-                </label>
-
-            </div>
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Female"
+                        >
+                        Female
+                    </label>
 
 
-            <!-- Skills -->
-            <label>
-                Skills
-            </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Other"
+                        >
+                        Other
+                    </label>
 
-            <div class="checkbox-group">
+                </div>
 
-                <label>
-                    <input
-                        type="checkbox"
-                        name="skills"
-                        value="Java"
-                    >
-                    Java
-                </label>
+            </fieldset>
 
+            <fieldset class="field-group">
 
-                <label>
-                    <input
-                        type="checkbox"
-                        name="skills"
-                        value="Python"
-                    >
-                    Python
-                </label>
+                <legend>
+                    Skills
+                </legend>
 
+                <div class="checkbox-group">
 
-                <label>
-                    <input
-                        type="checkbox"
-                        name="skills"
-                        value="JavaScript"
-                    >
-                    JavaScript
-                </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="Java"
+                        >
+                        Java
+                    </label>
 
 
-                <label>
-                    <input
-                        type="checkbox"
-                        name="skills"
-                        value="SQL"
-                    >
-                    SQL
-                </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="Python"
+                        >
+                        Python
+                    </label>
 
 
-                <label>
-                    <input
-                        type="checkbox"
-                        name="skills"
-                        value="React"
-                    >
-                    React
-                </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="JavaScript"
+                        >
+                        JavaScript
+                    </label>
 
 
-                <label>
-                    <input
-                        type="checkbox"
-                        name="skills"
-                        value="Django"
-                    >
-                    Django
-                </label>
-
-            </div>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="SQL"
+                        >
+                        SQL
+                    </label>
 
 
-            <!-- Experience -->
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="React"
+                        >
+                        React
+                    </label>
+
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="Django"
+                        >
+                        Django
+                    </label>
+
+                </div>
+
+            </fieldset>
+
             <label for="experience">
                 Experience
             </label>
@@ -373,11 +350,6 @@
             </div>
 
 
-            <!-- =========================
-                 FILE UPLOADS
-            ========================== -->
-
-            <!-- Photo -->
             <label for="photo">
                 Profile Photo
             </label>
@@ -390,8 +362,6 @@
                 required
             >
 
-
-            <!-- Resume -->
             <label for="resume">
                 Resume
             </label>
@@ -404,8 +374,6 @@
                 required
             >
 
-
-            <!-- Audio -->
             <label for="audio">
                 Audio
             </label>
@@ -417,8 +385,6 @@
                 accept="audio/*"
             >
 
-
-            <!-- Video -->
             <label for="video">
                 Video
             </label>
@@ -430,8 +396,6 @@
                 accept="video/*"
             >
 
-
-            <!-- Submit -->
             <button type="submit">
                 Register
             </button>
@@ -440,15 +404,10 @@
 
     </div>
 
-
-    <!-- Footer -->
-
     <footer>
         Fill the details carefully
     </footer>
 
-
-    <!-- JavaScript -->
 
     <script src="{% static 'registration/script.js' %}"></script>
 

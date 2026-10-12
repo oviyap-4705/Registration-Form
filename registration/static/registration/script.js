@@ -1,14 +1,5 @@
-// ======================================================
-// GET FORM ELEMENT
-// ======================================================
 
 const form = document.getElementById("registrationForm");
-
-
-// ======================================================
-// RANGE SLIDER
-// ======================================================
-
 const experience = document.getElementById("experience");
 const experienceValue = document.getElementById("experienceValue");
 
@@ -16,19 +7,10 @@ experience.addEventListener("input", function () {
     experienceValue.textContent = experience.value;
 });
 
-
-// ======================================================
-// FORM SUBMISSION
-// ======================================================
-
 form.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
-
-    // ==================================================
-    // GET VALUES
-    // ==================================================
 
     const name =
         document.getElementById("name").value.trim();
@@ -82,11 +64,6 @@ form.addEventListener("submit", async function (event) {
     const video =
         document.getElementById("video").files[0];
 
-
-    // ==================================================
-    // REQUIRED VALIDATION
-    // ==================================================
-
     if (name === "") {
         alert("Please enter your full name.");
         return;
@@ -122,11 +99,6 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-
-    // ==================================================
-    // EMAIL VALIDATION
-    // ==================================================
-
     const emailPattern =
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -135,32 +107,18 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-
-    // ==================================================
-    // PASSWORD VALIDATION
-    // ==================================================
-
     if (password.length < 8) {
         alert("Password must contain at least 8 characters.");
         return;
     }
 
 
-    // ==================================================
-    // PHONE VALIDATION
-    // ==================================================
-
-    const phonePattern = /^[0-9]{10}$/;
+    const phonePattern = /^\d{10}$/;
 
     if (!phonePattern.test(phone)) {
         alert("Phone number must contain exactly 10 digits.");
         return;
     }
-
-
-    // ==================================================
-    // WEBSITE NORMALIZATION
-    // ==================================================
 
     if (
         !website.startsWith("http://") &&
@@ -169,20 +127,10 @@ form.addEventListener("submit", async function (event) {
         website = "https://" + website;
     }
 
-
-    // ==================================================
-    // STATE VALIDATION
-    // ==================================================
-
     if (state === "") {
         alert("Please select your state.");
         return;
     }
-
-
-    // ==================================================
-    // LANGUAGE VALIDATION
-    // ==================================================
 
     const selectedLanguages =
         Array.from(languages.selectedOptions);
@@ -192,30 +140,15 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-
-    // ==================================================
-    // GENDER VALIDATION
-    // ==================================================
-
     if (!gender) {
         alert("Please select your gender.");
         return;
     }
 
-
-    // ==================================================
-    // SKILLS VALIDATION
-    // ==================================================
-
     if (skills.length === 0) {
         alert("Please select at least one skill.");
         return;
     }
-
-
-    // ==================================================
-    // IMAGE VALIDATION
-    // ==================================================
 
     if (!photo) {
         alert("Please upload your profile photo.");
@@ -233,11 +166,6 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-
-    // ==================================================
-    // PDF VALIDATION
-    // ==================================================
-
     if (!resume) {
         alert("Please upload your resume.");
         return;
@@ -249,10 +177,6 @@ form.addEventListener("submit", async function (event) {
     }
 
 
-    // ==================================================
-    // AUDIO VALIDATION
-    // ==================================================
-
     if (audio) {
 
         if (!audio.type.startsWith("audio/")) {
@@ -262,10 +186,6 @@ form.addEventListener("submit", async function (event) {
     }
 
 
-    // ==================================================
-    // VIDEO VALIDATION
-    // ==================================================
-
     if (video) {
 
         if (!video.type.startsWith("video/")) {
@@ -274,10 +194,6 @@ form.addEventListener("submit", async function (event) {
         }
     }
 
-
-    // ==================================================
-    // FILE SIZE VALIDATION
-    // ==================================================
 
     const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
     const MAX_PDF_SIZE = 10 * 1024 * 1024;
@@ -305,19 +221,8 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-
-    // ==================================================
-    // CREATE FORM DATA
-    // ==================================================
-
     const formData = new FormData(form);
 
-
-    // ==================================================
-    // EXPLICITLY ADD IMPORTANT VALUES
-    // ==================================================
-
-    // Make sure password reaches Django
     formData.set(
         "password",
         password
@@ -328,16 +233,10 @@ form.addEventListener("submit", async function (event) {
     formData.get("password")
     );
 
-    // Make sure normalized website reaches Django
     formData.set(
         "website",
         website
     );
-
-
-    // ==================================================
-    // CONVERT MULTIPLE LANGUAGES INTO TEXT
-    // ==================================================
 
     const languageValues =
         selectedLanguages.map(
@@ -350,10 +249,6 @@ form.addEventListener("submit", async function (event) {
     );
 
 
-    // ==================================================
-    // CONVERT MULTIPLE SKILLS INTO TEXT
-    // ==================================================
-
     const skillValues =
         Array.from(skills).map(
             skill => skill.value
@@ -364,14 +259,8 @@ form.addEventListener("submit", async function (event) {
         skillValues.join(", ")
     );
 
-
-    // ==================================================
-    // SEND DATA TO DJANGO API
-    // ==================================================
-
     try {
 
-        // Get Django CSRF token
         const csrfToken =
             document.querySelector(
                 '[name=csrfmiddlewaretoken]'
@@ -403,18 +292,7 @@ form.addEventListener("submit", async function (event) {
         );
 
 
-        // ==================================================
-        // SUCCESS
-        // ==================================================
-
         if (response.ok) {
-
-            /*
-             * Registration successful.
-             *
-             * No popup.
-             * Go directly to login page.
-             */
 
             alert(
                 "Registration successful! Please login."
@@ -427,11 +305,6 @@ form.addEventListener("submit", async function (event) {
             window.location.href = "/login/";
 
         }
-
-
-        // ==================================================
-        // API ERROR
-        // ==================================================
 
         else {
 
@@ -451,11 +324,6 @@ form.addEventListener("submit", async function (event) {
         }
 
     }
-
-
-    // ==================================================
-    // CONNECTION ERROR
-    // ==================================================
 
     catch (error) {
 

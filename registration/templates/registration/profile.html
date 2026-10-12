@@ -32,8 +32,6 @@
         </p>
 
 
-        <!-- SUCCESS MESSAGE -->
-
         {% if success %}
 
         <div
@@ -51,8 +49,6 @@
 
         {% endif %}
 
-
-        <!-- ERROR MESSAGE -->
 
         {% if errors %}
 
@@ -79,7 +75,6 @@
         {% endif %}
 
 
-        <!-- PROFILE FORM -->
 
         <form
             method="POST"
@@ -88,15 +83,7 @@
 
             {% csrf_token %}
 
-
-            <!-- ==================================================
-                 PERSONAL DETAILS
-                 ================================================== -->
-
             <h2>Personal Details</h2>
-
-
-            <!-- NAME -->
 
             <label for="name">
                 Full Name
@@ -110,10 +97,6 @@
                 placeholder="Enter your full name"
                 required
             >
-
-
-            <!-- EMAIL -->
-
             <label for="email">
                 Email
             </label>
@@ -126,9 +109,6 @@
                 placeholder="Enter your email address"
                 required
             >
-
-
-            <!-- PHONE -->
 
             <label for="phone_number">
                 Phone Number
@@ -143,9 +123,6 @@
                 required
             >
 
-
-            <!-- ADDRESS -->
-
             <label for="address">
                 Address
             </label>
@@ -157,8 +134,6 @@
                 required
             >{{ registration.address }}</textarea>
 
-
-            <!-- DOB -->
 
             <label for="dob">
                 Date of Birth
@@ -173,8 +148,6 @@
             >
 
 
-            <!-- WEBSITE -->
-
             <label for="website">
                 Website
             </label>
@@ -187,12 +160,6 @@
                 placeholder="https://example.com"
                 required
             >
-
-
-            <!-- ==================================================
-                 OTHER DETAILS
-                 ================================================== -->
-
             <h2
                 style="
                     margin-top: 35px;
@@ -202,7 +169,6 @@
             </h2>
 
 
-            <!-- STATE -->
 
             <label for="state">
                 State
@@ -276,9 +242,6 @@
 
             </select>
 
-
-            <!-- LANGUAGES -->
-
             <label for="languages">
                 Languages
             </label>
@@ -292,8 +255,6 @@
                 required
             >
 
-
-            <!-- GENDER -->
 
             <label for="gender">
                 Gender
@@ -332,9 +293,6 @@
 
             </select>
 
-
-            <!-- SKILLS -->
-
             <label for="skills">
                 Skills
             </label>
@@ -349,8 +307,6 @@
             >
 
 
-            <!-- EXPERIENCE -->
-
             <label for="experience">
                 Experience
             </label>
@@ -364,11 +320,6 @@
                 max="50"
                 required
             >
-
-
-            <!-- ==================================================
-                 PASSWORD
-                 ================================================== -->
 
             <h2
                 style="
@@ -399,11 +350,6 @@
                 minlength="8"
             >
 
-
-            <!-- ==================================================
-                 FILES
-                 ================================================== -->
-
             <h2
                 style="
                     margin-top: 35px;
@@ -412,8 +358,6 @@
                 Uploaded Files
             </h2>
 
-
-            <!-- PHOTO -->
 
             <label for="photo">
                 Profile Photo
@@ -430,7 +374,7 @@
 
                     <img
                         src="{{ registration.photo.url }}"
-                        alt="Profile Photo"
+                        alt="Profile"
                         style="
                             width: 130px;
                             height: 130px;
@@ -622,11 +566,6 @@
                 Select a new video file only if you want to replace it.
             </small>
 
-
-            <!-- ==================================================
-                 SAVE
-                 ================================================== -->
-
             <button
                 type="submit"
                 style="
@@ -638,8 +577,6 @@
 
         </form>
 
-
-        <!-- LOGOUT -->
 
         <a
             href="/logout/"
