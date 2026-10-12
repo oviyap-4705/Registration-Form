@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import check_password
+from django.views.decorators.http import require_http_methods
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, parser_classes
@@ -7,9 +8,14 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 from .serializers import RegistrationSerializer
 from .models import Registration
-from django.views.decorators.http import require_http_methods
 
 
+LOGIN_TEMPLATE = "registration/login.html"
+PROFILE_TEMPLATE = "registration/profile.html"
+REGISTER_TEMPLATE = "registration/register.html"
+
+
+@require_http_methods(["GET"])
 def home(request):
 
     return render(
@@ -18,14 +24,16 @@ def home(request):
     )
 
 
+@require_http_methods(["GET"])
 def register_page(request):
 
     return render(
         request,
-        "registration/register.html"
+        REGISTER_TEMPLATE
     )
 
 
+@require_http_methods(["GET", "POST"])
 def login_page(request):
 
     if request.method == "POST":
@@ -40,7 +48,6 @@ def login_page(request):
             ""
         )
 
-        
         try:
 
             registration = Registration.objects.get(
@@ -51,7 +58,7 @@ def login_page(request):
 
             return render(
                 request,
-                LOGIN_TEMPLATE = "registration/login.html",
+                LOGIN_TEMPLATE,
                 {
                     "error": "Invalid email or password."
                 }
@@ -61,26 +68,25 @@ def login_page(request):
 
             return render(
                 request,
-                "registration/login.html",
+                LOGIN_TEMPLATE,
                 {
                     "error": "Invalid email or password."
                 }
             )
 
-       
         request.session["registration_id"] = (
             registration.id
         )
 
         return redirect("/profile/")
 
-
     return render(
         request,
-        "registration/login.html"
+        LOGIN_TEMPLATE
     )
 
 
+@require_http_methods(["GET", "POST"])
 def profile_page(request):
 
     # Get logged-in user's ID
@@ -92,7 +98,6 @@ def profile_page(request):
     if not registration_id:
 
         return redirect("/login/")
-
 
     # Find registered user
     try:
@@ -107,8 +112,6 @@ def profile_page(request):
 
         return redirect("/login/")
 
-
-
     if request.method == "POST":
 
         update_data = request.POST.copy()
@@ -116,7 +119,6 @@ def profile_page(request):
         for field_name, uploaded_file in request.FILES.items():
 
             update_data[field_name] = uploaded_file
-
 
         password = request.POST.get(
             "password",
@@ -130,13 +132,11 @@ def profile_page(request):
                 None
             )
 
-
         serializer = RegistrationSerializer(
             registration,
             data=update_data,
             partial=True
         )
-
 
         if serializer.is_valid():
 
@@ -147,7 +147,7 @@ def profile_page(request):
 
             return render(
                 request,
-                PROFILE_TEMPLATE = "registration/profile.html",
+                PROFILE_TEMPLATE,
                 {
                     "registration": registration,
                     "success": "Details updated successfully."
@@ -156,28 +156,28 @@ def profile_page(request):
 
         return render(
             request,
-            "registration/profile.html",
+            PROFILE_TEMPLATE,
             {
                 "registration": registration,
                 "errors": serializer.errors
             }
         )
 
-
     return render(
         request,
-        "registration/profile.html",
+        PROFILE_TEMPLATE,
         {
             "registration": registration
         }
     )
 
+
+@require_http_methods(["GET", "POST"])
 def logout_page(request):
 
     request.session.flush()
 
     return redirect("/")
-
 
 
 @api_view(['GET', 'POST'])
@@ -200,7 +200,6 @@ def registration_api(request):
             serializer.data
         )
 
-
     if request.method == 'POST':
 
         serializer = RegistrationSerializer(
@@ -216,7 +215,6 @@ def registration_api(request):
                 "data": serializer.data
             })
 
-
         print(
             "SERIALIZER ERRORS:",
             serializer.errors
@@ -226,7 +224,6 @@ def registration_api(request):
             serializer.errors,
             status=400
         )
-
 
 
 @api_view([
@@ -240,7 +237,6 @@ def registration_api(request):
 ])
 def registration_detail_api(request, id):
 
-    
     try:
 
         registration = Registration.objects.get(
@@ -253,8 +249,6 @@ def registration_detail_api(request, id):
             "error": "Registration not found"
         }, status=404)
 
-
-
     if request.method == 'GET':
 
         serializer = RegistrationSerializer(
@@ -264,7 +258,6 @@ def registration_detail_api(request, id):
         return Response(
             serializer.data
         )
-
 
     if request.method == 'PATCH':
 
@@ -283,7 +276,6 @@ def registration_detail_api(request, id):
                 "data": serializer.data
             })
 
-
         print(
             "SERIALIZER ERRORS:",
             serializer.errors
@@ -293,7 +285,6 @@ def registration_detail_api(request, id):
             serializer.errors,
             status=400
         )
-
 
     if request.method == 'DELETE':
 
