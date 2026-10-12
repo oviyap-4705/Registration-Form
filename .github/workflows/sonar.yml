@@ -1,38 +1,16 @@
-
 name: SonarQube Cloud Analysis
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened]
-
-permissions:
-  contents: read
+    branches: [main]
 
 jobs:
-  sonarcloud:
-    name: Analyze Django Project
+  sonarqube:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Check Sonar token availability
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          if [ -n "$SONAR_TOKEN" ]; then
-            echo "SONAR_TOKEN is available"
-          else
-            echo "SONAR_TOKEN is MISSING"
-            exit 1
-          fi
-
 
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
